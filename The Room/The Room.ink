@@ -1,7 +1,11 @@
-Its dark and cold, you find yourself in a creeky old bed in a room which appears to be a basement of a seemingly haunted house. You are distressed and scared.
+"What is this place?" 
+"Where am I and why does my head ache so much?"
 
-You find a gun and and a flashlight
+You find yourself waking up on a blood-stained, creeky old bed in a bleak, cold, and completely dark room which appears to be a basement of a seemingly haunted house. 
+You step out of the bed and feel a chill as the darkness engulfs you. Taking some timid steps in the utter darkness you collide with a table that has a flashlight and a gun.
+
 Choose one:
+
 VAR gunJammed = true
 VAR tvOn = false
 VAR fileCabExplored = false
@@ -9,25 +13,39 @@ VAR fileCabExplored = false
 === TheBasement ===
 ~ tvOn = false
 ~ fileCabExplored = false
-+ "gun"
++ "Try to kill yourself with the gun!"
 -> gun
-+ "flashlight"
++ "Try to turn on the flashlight and look around"
 -> flashlight
 === gun === 
-"You try to kill yourself"
-{gunJammed: Gun is empty. | Gun is empty. You look into your pockets and find some bullets. Load them into the gun and you kill yourself -> END}
-+"flashlight"
+"BBBBRRRRRRRRRRRRRRRTTTTTTTTTTT. *Empty click*"
+{gunJammed: The gun is empty.| Gun is empty. You look into your pockets and find some bullets. Load them into the gun and you kill yourself -> END}
++"Try to turn on the flashlight and look around"
 -> flashlight
 === flashlight ===
-Roams around the room trying to find a way out
-Sees blood markings saying its a trap and children names
-flashlight scene. Follow flashlight find two rooms room 1 and room 2.
-+"Enter Left Room"
+You point your flashlight to the walls try to look for a light switch. Chills run down your spine as you see the blood-writings on the wall!!
+"IT'S A TRAP!! STUCK HERE FOREVER....!!!"
+"YOUR CHILDREN WAIT FOR YOU!! THEY HAVE HER!!"
+and,
+"TRUST ME, DON'T LEAVE!! THEY'LL KILL YOu....."
+
+Horror-struck, you try to pace away from the wall while comprehending the meaning of those warnings and stumble across two doors.
+
+Choose one:
+
++"Open the left door"
 -> leftRoom
-+"Enter Right Room"
++"Open the right door"
 -> rightRoom
 === leftRoom ===
-Something happens and he is captured and put to sleep again.
+"Who are you? Why am I here?"
+"I want to go home!!!"
+"No No No, what is in this injection? What are guys doing to mee??" 
+"Please don't do this!!" 
+"I want to go ho..."
+
+Everything around you is blurry and you feel that qaint numbness around you as you close your eyes.
+Days later, you wake up again on the same bed in the bleak and dark room and find a gun and flashlight lying on the floor.
 -> TheBasement
 === rightRoom ===
 {not fileCabExplored and not tvOn : Notices old tv that is switched off and a file cabinet }
