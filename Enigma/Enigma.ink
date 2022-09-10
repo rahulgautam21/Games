@@ -120,7 +120,6 @@ Stupified, you see a blood writing saying:
 + MARIA
 -> experimentalLab
 === experimentalLab ===
-Explain experimental lab about chemicals test trials. Dead bodies of his family in tubes with cut body parts. You go down further suddenly you feel a beep and an alarm sets of with the bracelet on your ankle. Guards surround you.
 
 The keypad beeps twice and then turns green. The door swings open and you find yourself in a laboratory. It is pitch black inside, so you turn on your flashlight. To your dismay, the torch starts flickering and a very feeble light emerges from it.
 
