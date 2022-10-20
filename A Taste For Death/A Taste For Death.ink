@@ -138,4 +138,5 @@ Even after {moves} moves you were not able to successfully guess the culprit.
 -> Ending
 
 === Ending === 
+Please help us improve this game by submitting your feedback on: <a href="https:\/\/docs.google.com/forms/d/e/1FAIpQLSfWi1PooOR89LLTz1sp6ztfj7CXB26g1ehehrdllKWDtcBspg/viewform">Submit Feedback</a>
 -> END
