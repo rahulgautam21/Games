@@ -1,3 +1,5 @@
 fastapi==0.86.0
 openai==0.25.0
 uvicorn==0.19.0
+PyHyphen==4.0.3
+nltk==3.7

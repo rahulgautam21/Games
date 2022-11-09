@@ -6,6 +6,10 @@ import random
 # This is not committed to git for safety feel free to create a config.py and store the
 from config import openai_access_token
 
+# Cohesion libraries
+from cohesion import *
+
+
 app = FastAPI()
 openai.api_key = openai_access_token
 completion = openai.Completion()
@@ -123,6 +127,16 @@ def get_setting():
     ans = random.choice(hero_villain)
     ans['location'] = random.choice(cities)
     return ans
+
+
+# API call to get cohesion metrics
+@app.get('/getCohesion')
+def get_cohesion(text: str):
+    """
+    :param text: a string of sentences
+    :return: Word dist cohesion score
+    """
+    return word_dist_cohesion(text)
 
 
 if __name__ == "__main__":
