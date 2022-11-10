@@ -63,16 +63,17 @@
                 <input type="text" class="form-control" id="eprompt" name="end_prompt" placeholder="Ending prompt" required>
             </div>
             <div class="mt-2 text-center">
-                <button type="submit" class="btn btn-primary" id="generate" onclick="return startGenerateHTML()">Generate</button>
+                <button type="submit" class="btn btn-outline-success btn-lg w-100" id="generate" onclick="return startGenerateHTML()">Generate</button>
                 <!-- <button type="submit" class="btn btn-primary" id="generate"">Generate</button> -->
             </div>
         <!-- </form> -->
-        <div id="div1" style="flex-direction: row">
+        <div id="div1" style="flex-direction: row" class="text-center">
         </div>
         <div class="mt-2 text-center">
-            <button type="submit" class="btn btn-primary" id="generate" onclick="return evaluateStory()">Evaluate Story</button>
+            <button type="submit" class="btn btn-outline-success btn-lg w-100" id="evaluate" onclick="return evaluateStory()">Evaluate Story</button>
         </div>
-        <div id="div2" style="flex-direction: row">
+        <div id="div2" style="flex-direction: row" class="mt-2 text-center">
+            <ul class="list-group" id="lg"></ul>
         </div>
     </div>
     <script type="text/javaScript" src="js/script.js"></script>

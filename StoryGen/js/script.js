@@ -50,12 +50,14 @@ function getCohesion() {
 
 
 function evaluateStory() {
-    removeAllChildNodes(document.getElementById("div2"));
+    removeAllChildNodes(document.getElementById("lg"));
     var count  = countSetting();
-    div1 = document.getElementById("div2").appendChild(document.createElement("div"));
-    div1.appendChild(document.createTextNode("You covered " + count  + " settings in your story"));
-    div2 = document.getElementById("div2").appendChild(document.createElement("div"));
-    div2.appendChild(document.createTextNode("Cohesion score " + getCohesion()));
+    div1 = document.getElementById("lg").appendChild(document.createElement("li"));
+    div1.appendChild(document.createTextNode("You covered " + count  + " setting(s) in your story"));
+    div1.className += 'list-group-item';
+    div2 = document.getElementById("lg").appendChild(document.createElement("li"));
+    div2.appendChild(document.createTextNode("Cohesion score: " + getCohesion()));
+    div2.className += 'list-group-item';
 }
 
 function startGenerateHTML(){
@@ -79,15 +81,20 @@ function startGenerateHTML(){
         div = document.getElementById("div1").appendChild(document.createElement("div"));
         div.appendChild(document.createTextNode("No more suggestions available from AI. Kindly add more to the starting prompt."));
     }
+    var set = new Set();
 
     for(obj of options){
-        div = document.getElementById("div1").appendChild(document.createElement("button"));
-        div.appendChild(document.createTextNode(obj));
-        
-        div.addEventListener('click', function (event) {
-            document.getElementById("sprompt").value = document.getElementById('sprompt').value + event.srcElement.childNodes[0].data;
-        });
-        console.log(div)
+        if(set.has(obj) == false){
+            set.add(obj);
+            div = document.getElementById("div1").appendChild(document.createElement("button"));
+            div.appendChild(document.createTextNode(obj));
+            div.className += 'btn btn-outline-primary btn-lg w-100 mt-2 mb-2'
+            console.log(div)
+            div.addEventListener('click', function (event) {
+                document.getElementById("sprompt").value = document.getElementById('sprompt').value + event.srcElement.childNodes[0].data;
+            });
+            console.log(div);  
+        } 
     }
     
 
