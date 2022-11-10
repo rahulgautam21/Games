@@ -136,7 +136,7 @@ def get_cohesion(text: str):
     :param text: a string of sentences
     :return: Word dist cohesion score
     """
-    return word_dist_cohesion(text)
+    return word_dist_cohesion(Document(text))
 
 
 if __name__ == "__main__":
