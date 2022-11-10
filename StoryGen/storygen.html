@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <!-- As a heading -->
+        <nav class="navbar navbar-dark bg-dark mt-5 mb-3" style="height: 100px">
+            <div class="container-fluid">
+                <span class="navbar-brand mb-0 h1 text-white mx-auto">RESULT</span>
+            </div>
+        </nav>
+    <div class="container">
+        <form>
+            <!-- <div class="form-group mb-2">
+                <label for="sprompt">Starting Prompt</label>
+                <input type="text" class="form-control" id="sprompt_sg" readonly="readonly">
+            </div> -->
+            <div class="form-group mt-2 mb-2">
+                <!-- <label for="eprompt">Suggestion 1</label>
+                <input type="text" class="form-control" id="foption_sg" readonly="readonly"> -->
+                <span id="foption_sg"></span>
+            </div>
+            <div class="form-group mt-2 mb-2">
+                <!-- <label for="eprompt">Suggestion 2</label>
+                <input type="text" class="form-control" id="soption_sg" readonly="readonly"> -->
+                <span id="soption_sg"></span>
+
+            </div>
+            <div class="form-group mt-2 mb-2">
+                <label for="eprompt">Suggestion 3</label>
+                <input type="text" class="form-control" id="toptoion_sg" readonly="readonly">
+            </div>
+            <div class="form-group mt-2 mb-2">
+                <label for="eprompt">Custom</label>
+                <input type="text" class="form-control" id="custom_sg">
+            </div>
+            <div class="mt-2 text-center">
+                <button type="submit" class="btn btn-primary" id="generate_sg" onclick="startGenerateHTML()">Generate</button>
+            </div>
+            <div class="mt-2 text-center">
+                <button type="submit" class="btn btn-primary" id="finish_sg" onclick="startGenerateHTML()">Finish</button>
+            </div>
+            <!-- <div class="form-group mt-5 mb-2">
+                <label for="eprompt">Ending Prompt</label>
+                <input type="text" class="form-control" id="eprompt_sg" readonly="readonly">
+            </div> -->
+        </form>
+                    <div class="form-group mt-2 mb-2" id="test">
+                    </div>
+    </div>
+</body>
+
+</html>
