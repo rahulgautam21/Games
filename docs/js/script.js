@@ -88,7 +88,7 @@ function startGenerateHTML() {
             set.add(obj);
             div = document.getElementById("div1").appendChild(document.createElement("button"));
             div.appendChild(document.createTextNode(obj));
-            div.className += 'btn btn-outline-primary btn-lg w-100 mt-2 mb-2'
+            div.className += 'btn btn-outline-primary'
             console.log(div)
             div.addEventListener('click', function (event) {
                 document.getElementById("sprompt").value = document.getElementById('sprompt').value + event.srcElement.childNodes[0].data;
@@ -134,13 +134,13 @@ function getImage() {
         .then(response => response.json())
         .then(response => {
             console.log(response);
-            var sprompt = document.getElementById('sprompt');
-            sprompt.style.backgroundImage = 'url(' + response + ')';
+            var sprompt = document.getElementById('temp_div');
+            sprompt.style.background = 'url(' + response + ') no-repeat center center';
             sprompt.style.backgroundSize = 'contain';
-            sprompt.style.backgroundRepeat = 'no-repeat';
+            // sprompt.style.backgroundRepeat = 'no-repeat';
 
 
-            sprompt.style.opacity = 0.5;
+            // sprompt.style.opacity = 1;
             // sprompt.style.zIndex = -1;
             console.log(response);
         });

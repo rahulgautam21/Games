@@ -23,7 +23,7 @@ function removeAllChildNodes(parent) {
     }
 }
 
-function countSetting(){
+function countSetting() {
     var s = document.getElementById('sprompt').value;
     var count = 0;
     if (s.includes(setting.hero)) {
@@ -51,16 +51,16 @@ function getCohesion() {
 
 function evaluateStory() {
     removeAllChildNodes(document.getElementById("lg"));
-    var count  = countSetting();
+    var count = countSetting();
     div1 = document.getElementById("lg").appendChild(document.createElement("li"));
-    div1.appendChild(document.createTextNode("You covered " + count  + " setting(s) in your story"));
+    div1.appendChild(document.createTextNode("You covered " + count + " setting(s) in your story"));
     div1.className += 'list-group-item';
     div2 = document.getElementById("lg").appendChild(document.createElement("li"));
     div2.appendChild(document.createTextNode("Cohesion score: " + getCohesion()));
     div2.className += 'list-group-item';
 }
 
-function startGenerateHTML(){
+function startGenerateHTML() {
     function getOptions(params) {
         var xmlHttp = new XMLHttpRequest();
         xmlHttp.open("GET", 'http://152.7.176.41:8000/getChoices' + formatParams(params), false); // false for synchronous request
@@ -68,42 +68,42 @@ function startGenerateHTML(){
         return JSON.parse(xmlHttp.response);
     }
     var firstPrompts = {
-        "start_prompt" : document.getElementById('sprompt').value,
+        "start_prompt": document.getElementById('sprompt').value,
         "end_prompt": document.getElementById('eprompt').value,
     }
-    var options  = getOptions(firstPrompts);
-    
+    var options = getOptions(firstPrompts);
+
     console.log(typeof options, options);
 
     removeAllChildNodes(document.getElementById("div1"));
 
-    if(options.length == 0){
+    if (options.length == 0) {
         div = document.getElementById("div1").appendChild(document.createElement("div"));
         div.appendChild(document.createTextNode("No more suggestions available from AI. Kindly add more to the starting prompt."));
     }
     var set = new Set();
 
-    for(obj of options){
-        if(set.has(obj) == false){
+    for (obj of options) {
+        if (set.has(obj) == false) {
             set.add(obj);
             div = document.getElementById("div1").appendChild(document.createElement("button"));
             div.appendChild(document.createTextNode(obj));
-            div.className += 'btn btn-outline-primary btn-lg w-100 mt-2 mb-2'
+            div.className += 'btn btn-outline-primary'
             console.log(div)
             div.addEventListener('click', function (event) {
                 document.getElementById("sprompt").value = document.getElementById('sprompt').value + event.srcElement.childNodes[0].data;
             });
-            console.log(div);  
-        } 
+            console.log(div);
+        }
     }
-    
+
 
 
     // var split_options = options.split(",")
     // console.log(split_options);
 
     // var set = new Set();
-    
+
     // if(split_options.length > 1){
     //     for(var i = 0; i< split_options.length; i++){
     //         set.add(split_options[i]);
@@ -114,11 +114,11 @@ function startGenerateHTML(){
 
     // if(set.size  == 3){
     //     document.getElementById("foption_sg").innerHTML = "";
-         
+
     // }
 }
 
-function getSetting(){
+function getSetting() {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open("GET", 'http://152.7.176.41:8000/getSetting', false); // false for synchronous request
     xmlHttp.send(null);
@@ -134,13 +134,13 @@ function getImage() {
         .then(response => response.json())
         .then(response => {
             console.log(response);
-            var sprompt = document.getElementById('sprompt');
-            sprompt.style.backgroundImage = 'url('+response+')';
+            var sprompt = document.getElementById('temp_div');
+            sprompt.style.background = 'url(' + response + ') no-repeat center center';
             sprompt.style.backgroundSize = 'contain';
-            sprompt.style.backgroundRepeat = 'no-repeat';
+            // sprompt.style.backgroundRepeat = 'no-repeat';
 
 
-            sprompt.style.opacity = 0.5;
+            // sprompt.style.opacity = 1;
             // sprompt.style.zIndex = -1;
             console.log(response);
         });

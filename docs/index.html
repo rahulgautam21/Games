@@ -55,16 +55,24 @@
     <div class="container">
         <!-- <form> -->
         <div class="form-group mb-2" id="d1">
-            <label for="sprompt">Starting Prompt</label>
-            <textarea class="form-control" id="sprompt" name="start_prompt" style="min-height: 500px;"
-                placeholder="Starting prompt" autofocus required></textarea>
+            <div class="row">
+                <div class="col-sm">
+                    <label for="sprompt">Starting Prompt</label>
+                    <textarea class="form-control" id="sprompt" name="start_prompt" style="min-height: 350px;"
+                        placeholder="Please enter a starting sentence of a story" autofocus required></textarea>
+                 </div>
+                <div class="col-sm">
+                    <div id="temp_div" class="border border-dark" style="min-height: 375px">
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="form-group mt-2 mb-2">
             <label for="eprompt">Ending Prompt</label>
-            <input type="text" class="form-control" id="eprompt" name="end_prompt" placeholder="Ending prompt" required>
+            <input type="text" class="form-control" id="eprompt" name="end_prompt" placeholder="Please enter a ending sentence of a story and click generate" required>
         </div>
         <div class="mt-2 text-center">
-            <button type="submit" class="btn btn-outline-success btn-lg w-100" id="generate"
+            <button type="submit" class="btn btn-outline-success w-100" id="generate"
                 onclick="return startGenerateHTML()">Generate</button>
             <!-- <button type="submit" class="btn btn-primary" id="generate"">Generate</button> -->
         </div>
@@ -72,7 +80,7 @@
         <div id="div1" style="flex-direction: row" class="text-center">
         </div>
         <div class="mt-2 text-center">
-            <button type="submit" class="btn btn-outline-success btn-lg w-100" id="evaluate"
+            <button type="submit" class="btn btn-outline-success w-100" id="evaluate"
                 onclick="return evaluateStory()">Evaluate Story</button>
         </div>
         <div id="div2" style="flex-direction: row" class="mt-2 text-center">
