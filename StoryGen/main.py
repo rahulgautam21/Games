@@ -2,13 +2,19 @@ from fastapi import FastAPI
 import uvicorn
 import openai
 import random
-
 # This is not committed to git for safety feel free to create a config.py and store the
 from config import openai_access_token
-
 # Cohesion libraries
 from cohesion import *
+import psycopg2
+from psycopg2.extras import DictCursor
+from pydantic import BaseModel
 
+conn = psycopg2.connect(database="postgres",
+                        host="localhost",
+                        user="postgres",
+                        password="admin",
+                        port="5432")
 
 app = FastAPI()
 openai.api_key = openai_access_token
@@ -137,6 +143,57 @@ def get_cohesion(text: str):
     :return: Word dist cohesion score
     """
     return word_dist_cohesion(Document(text))
+
+
+# API call to get all story titles
+@app.get('/titles')
+def get_titles():
+    titles = []
+    with conn.cursor(cursor_factory=DictCursor) as curs:
+        curs.execute("SELECT row_to_json(row) FROM (SELECT title FROM story) row;")
+        results = curs.fetchall()
+        for result in results:
+            titles.append(result[0]['title'])
+    return titles
+
+
+# API call to get story based on title
+@app.get('/story')
+def get_story(title: str):
+    ans = {}
+    with conn.cursor(cursor_factory=DictCursor) as curs:
+        curs.execute("SELECT row_to_json(row) FROM (SELECT * FROM story where title='" + title + "') row;")
+        results = curs.fetchone()
+        ans = results[0]
+    return ans
+
+
+class Story(BaseModel):
+    title: str
+    text: str
+    hero: str
+    villain: str
+    location: str
+
+
+# API call to save story
+@app.post('/story')
+def save_story(story: Story):
+    ans = ""
+    cursor = conn.cursor()
+    try:
+        cursor.execute('INSERT INTO story (title, text, hero, villain, location) VALUES (%s, %s, %s, %s, %s) '
+                       'ON CONFLICT (title) DO UPDATE SET (text, hero, villain, location) = (EXCLUDED.text,'
+                       ' EXCLUDED.hero,EXCLUDED.villain, EXCLUDED.location)',
+                       (story.title, story.text, story.hero, story.villain, story.location))
+        conn.commit()
+        ans = "Successfully Saved"
+    except psycopg2.Error as e:
+        print(e)
+        conn.rollback()
+        ans = "Could not save " + str(e.pgerror)
+    cursor.close()
+    return ans
 
 
 if __name__ == "__main__":
