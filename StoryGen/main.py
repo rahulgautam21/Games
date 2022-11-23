@@ -195,6 +195,10 @@ def save_story(story: Story):
     cursor.close()
     return ans
 
+@app.get('/comic')
+def get_comic(title: str):
+    return None
+
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
