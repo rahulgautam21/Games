@@ -9,6 +9,7 @@ from cohesion import *
 import psycopg2
 from psycopg2.extras import DictCursor
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
 
 conn = psycopg2.connect(database="postgres",
                         host="localhost",
@@ -17,6 +18,10 @@ conn = psycopg2.connect(database="postgres",
                         port="5432")
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*']
+)
 openai.api_key = openai_access_token
 completion = openai.Completion()
 
