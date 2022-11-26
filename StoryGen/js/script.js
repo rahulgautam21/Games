@@ -1,4 +1,3 @@
-
 var setting = getSetting();
 getImage();
 
@@ -43,7 +42,7 @@ function getCohesion() {
         "text": document.getElementById('sprompt').value + document.getElementById('eprompt').value
     };
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", 'http://152.7.176.41:8000/getCohesion' + formatParams(params), false); // false for synchronous request
+    xmlHttp.open("GET", 'http://152.7.177.129:8000/getCohesion' + formatParams(params), false); // false for synchronous request
     xmlHttp.send(null);
     return JSON.parse(xmlHttp.response);
 }
@@ -63,7 +62,7 @@ function evaluateStory() {
 function startGenerateHTML() {
     function getOptions(params) {
         var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open("GET", 'http://152.7.176.41:8000/getChoices' + formatParams(params), false); // false for synchronous request
+        xmlHttp.open("GET", 'http://152.7.177.129:8000/getChoices' + formatParams(params), false); // false for synchronous request
         xmlHttp.send(null);
         return JSON.parse(xmlHttp.response);
     }
@@ -120,7 +119,7 @@ function startGenerateHTML() {
 
 function getSetting() {
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", 'http://152.7.176.41:8000/getSetting', false); // false for synchronous request
+    xmlHttp.open("GET", 'http://152.7.177.129:8000/getSetting', false); // false for synchronous request
     xmlHttp.send(null);
     return JSON.parse(xmlHttp.response);
 }
@@ -130,7 +129,7 @@ function getImage() {
         "story": setting.hero + " and " + setting.villain + " in " + setting.location
     };
 
-    fetch('http://152.7.176.41:8000/getImage' + formatParams(params))
+    fetch('http://152.7.177.129:8000/getImage' + formatParams(params))
         .then(response => response.json())
         .then(response => {
             console.log(response);
@@ -145,11 +144,28 @@ function getImage() {
             console.log(response);
         });
     // var xmlHttp = new XMLHttpRequest();
-    // xmlHttp.open("GET", 'http://152.7.176.41:8000/getImage' + formatParams(params), false); // false for synchronous request
+    // xmlHttp.open("GET", 'http://152.7.177.41:8000/getImage' + formatParams(params), false); // false for synchronous request
     // xmlHttp.send(null);
     // // return JSON.parse(xmlHttp.response);
     // return xmlHttp.responseText
 }
 
-
-
+function saveStory(){
+    var params = {
+        "title": document.getElementById('save').value,
+        "text": document.getElementById('sprompt').value + "######" + document.getElementById('eprompt').value,
+        "hero": setting.hero,
+        "villain": setting.villain,
+        "location": setting.location
+    };
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("POST", 'http://152.7.177.129:8000/story', true);
+    xmlHttp.setRequestHeader("Content-Type", "application/json");
+    xmlHttp.onreadystatechange = function () {//Call a function when the state changes.
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+            console.log(xmlHttp.responseText);
+        }
+    }
+    xmlHttp.send(JSON.stringify(params));
+    document.location.href = "./stories.html"
+}
