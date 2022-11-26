@@ -20,6 +20,7 @@ conn = psycopg2.connect(database="postgres",
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
+    allow_methods=["*"],
     allow_origins=['*']
 )
 openai.api_key = openai_access_token
@@ -166,10 +167,15 @@ def get_titles():
 @app.get('/story')
 def get_story(title: str):
     ans = {}
-    with conn.cursor(cursor_factory=DictCursor) as curs:
-        curs.execute("SELECT row_to_json(row) FROM (SELECT * FROM story where title='" + title + "') row;")
-        results = curs.fetchone()
+    cursor = conn.cursor()
+    try:
+        cursor.execute('SELECT row_to_json(row) FROM (SELECT * FROM story where title="' + title + '") row;')
+        results = cursor.fetchone()
         ans = results[0]
+    except psycopg2.Error as e:
+        print(e)
+        conn.rollback()
+    cursor.close()
     return ans
 
 
