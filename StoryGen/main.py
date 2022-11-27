@@ -169,7 +169,8 @@ def get_story(title: str):
     ans = {}
     cursor = conn.cursor()
     try:
-        cursor.execute('SELECT row_to_json(row) FROM (SELECT * FROM story where title="' + title + '") row;')
+        cursor.execute("SELECT row_to_json(row) FROM (SELECT * FROM story where title='" + title.replace("'", "''")
+                       + "') row;")
         results = cursor.fetchone()
         ans = results[0]
     except psycopg2.Error as e:
@@ -213,3 +214,12 @@ def get_comic(title: str):
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
+
+# if __name__ == '__main__':
+#     Popen(['python', '-m', 'https_redirect'])  # Add this
+#     uvicorn.run(
+#         'main:app', port=8432, host='0.0.0.0',
+#         reload=True, reload_dirs=['html_files'],
+#         ssl_keyfile='/home/rgautam3/Desktop/Games-main/StoryGen/privatekey.pem',
+#         ssl_certfile='/home/rgautam3/Desktop/Games-main/StoryGen/certificate.pem')
+
