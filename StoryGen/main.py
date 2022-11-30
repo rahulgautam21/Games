@@ -229,6 +229,7 @@ def save_story(story: Story):
     cursor.close()
     return ans
 
+
 def multiline_sentence(text):
     line_length = 50
     count = 0
@@ -255,38 +256,32 @@ def image_generator(text):
 
     for sentence in replaced_sentences:
         response = openai.Image.create(
-                prompt=sentence,
-                n=1,
-                size="512x512"
-            )
+            prompt=sentence,
+            n=1,
+            size="512x512"
+        )
         image_url = response['data'][0]['url']
         urls.append(image_url)
 
-    black_response = openai.Image.create(
-                prompt="blank",
-                n=1,
-                size="512x512"
-            )
-
-    black_image = black_response['data'][0]['url']
+    im = Image.new(mode="RGB", size=(512, 512))
 
     for idx in range(len(sentences)):
         sentences[idx] = multiline_sentence(sentences[idx])
 
-    return sentences, urls, black_image
+    return sentences, urls, im
 
 
 @app.get('/comic', responses={
-        200: {
-            "content": {"image/png": {}}
-        }
-    },
-    response_class=Response
-)
+    200: {
+        "content": {"image/png": {}}
+    }
+},
+         response_class=Response
+         )
 def get_comic(story: str):
     sentences, urls, black_image = image_generator(story)
     url_length = len(urls)
-    rows = math.ceil(url_length/4)
+    rows = math.ceil(url_length / 4)
     v_stack = []
     font = ImageFont.truetype("OpenSans-Regular.ttf", size=20)
 
@@ -294,18 +289,20 @@ def get_comic(story: str):
         image_arr = []
 
         for j in range(4):
-            index = 4*i + j
+            index = 4 * i + j
             if index < url_length:
                 img = Image.open(urlopen(urls[index]))
-                draw = ImageDraw.Draw(img,"RGBA")
+                draw = ImageDraw.Draw(img, "RGBA")
                 draw.rectangle(((10, 400), (502, 500)), fill=(200, 100, 0, 127))
                 draw.rectangle(((10, 400), (502, 500)), outline=(0, 0, 0, 127), width=3)
                 draw.multiline_text((15, 410), sentences[index], (0, 0, 0),  # Color
-                    font=font)
+                                    font=font)
+                # print(np.array(img).shape)
                 image_arr.append(img)
 
             else:
-                img = Image.open(urlopen(black_image))
+                img = black_image
+                # print(np.array(img).shape)
                 image_arr.append(img)
 
         cstrip = np.hstack((image_arr))
