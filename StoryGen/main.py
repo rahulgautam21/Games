@@ -248,7 +248,7 @@ def multiline_sentence(text):
 def image_generator(text):
     sentences = splitter.split(text=text)
     # Replacing pronoun with nouns
-    doc = nlp(story)
+    doc = nlp(text)
     replaced_sentences = splitter.split(text=doc._.coref_resolved)
 
     urls = []
