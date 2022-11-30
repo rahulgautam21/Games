@@ -21,6 +21,11 @@ import numpy as np
 import math
 from io import BytesIO
 from fastapi import Response
+import spacy
+import neuralcoref
+
+nlp = spacy.load('en_core_web_sm')
+neuralcoref.add_to_pipe(nlp)
 
 splitter = SentenceSplitter(language='en')
 
@@ -242,9 +247,13 @@ def multiline_sentence(text):
 
 def image_generator(text):
     sentences = splitter.split(text=text)
+    # Replacing pronoun with nouns
+    doc = nlp(story)
+    replaced_sentences = splitter.split(text=doc._.coref_resolved)
+
     urls = []
 
-    for sentence in sentences:
+    for sentence in replaced_sentences:
         response = openai.Image.create(
                 prompt=sentence,
                 n=1,
