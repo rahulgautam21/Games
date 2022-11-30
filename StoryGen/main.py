@@ -10,6 +10,23 @@ import psycopg2
 from psycopg2.extras import DictCursor
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
+from sentence_splitter import SentenceSplitter, split_text_into_sentences
+from imageio import imread, imwrite
+from PIL import ImageDraw
+from PIL import Image, ImageFont
+import requests
+from urllib.request import urlopen
+import base64
+import numpy as np
+import math
+from io import BytesIO
+from fastapi import Response
+
+splitter = SentenceSplitter(language='en')
+
+TINT_COLOR = (255, 255, 255)  # White
+TRANSPARENCY = .25  # Degree of transparency, 0-100%
+OPACITY = int(255 * TRANSPARENCY)
 
 conn = psycopg2.connect(database="postgres",
                         host="localhost",
@@ -207,9 +224,96 @@ def save_story(story: Story):
     cursor.close()
     return ans
 
-@app.get('/comic')
-def get_comic(title: str):
-    return None
+def multiline_sentence(text):
+    line_length = 50
+    count = 0
+    new_text = ''
+
+    for word in text.split():
+        if count + len(word) + 1 > line_length:
+            count = 0
+            new_text += '\n'
+
+        new_text += ' ' + word
+        count += len(word) + 1
+
+    return new_text
+
+
+def image_generator(text):
+    sentences = splitter.split(text=text)
+    urls = []
+
+    for sentence in sentences:
+        response = openai.Image.create(
+                prompt=sentence,
+                n=1,
+                size="512x512"
+            )
+        image_url = response['data'][0]['url']
+        urls.append(image_url)
+
+    black_response = openai.Image.create(
+                prompt="blank",
+                n=1,
+                size="512x512"
+            )
+
+    black_image = black_response['data'][0]['url']
+
+    for idx in range(len(sentences)):
+        sentences[idx] = multiline_sentence(sentences[idx])
+
+    return sentences, urls, black_image
+
+
+@app.get('/comic', responses={
+        200: {
+            "content": {"image/png": {}}
+        }
+    },
+    response_class=Response
+)
+def get_comic(story: str):
+    sentences, urls, black_image = image_generator(story)
+    url_length = len(urls)
+    rows = math.ceil(url_length/4)
+    v_stack = []
+    font = ImageFont.truetype("OpenSans-Regular.ttf", size=20)
+
+    for i in range(rows):
+        image_arr = []
+
+        for j in range(4):
+            index = 4*i + j
+            if index < url_length:
+                img = Image.open(urlopen(urls[index]))
+                draw = ImageDraw.Draw(img,"RGBA")
+                draw.rectangle(((10, 400), (502, 500)), fill=(200, 100, 0, 127))
+                draw.rectangle(((10, 400), (502, 500)), outline=(0, 0, 0, 127), width=3)
+                draw.multiline_text((15, 410), sentences[index], (0, 0, 0),  # Color
+                    font=font)
+                image_arr.append(img)
+
+            else:
+                img = Image.open(urlopen(black_image))
+                image_arr.append(img)
+
+        cstrip = np.hstack((image_arr))
+        v_stack.append(cstrip)
+
+    result = np.vstack(v_stack)
+    data = result.copy()
+
+    image_out = Image.fromarray(data)
+
+    # save image to an in-memory bytes buffer
+    with BytesIO() as buf:
+        image_out.save(buf, format='PNG')
+        im_bytes = buf.getvalue()
+
+    headers = {'Content-Disposition': 'inline; filename="test.png"'}
+    return Response(im_bytes, headers=headers, media_type='image/png')
 
 
 if __name__ == "__main__":
