@@ -1,6 +1,6 @@
 function getTitles() {
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", 'http://152.7.177.129:8000/titles' + '/', false); // false for synchronous request
+    xmlHttp.open("GET", 'http://152.7.177.129:8000/titles', false); // false for synchronous request
     xmlHttp.send(null);
     return JSON.parse(xmlHttp.response);
 }

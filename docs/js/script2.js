@@ -20,7 +20,7 @@ function getStory(title) {
         "title": title
     };
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", 'http://152.7.177.129:8000/story' + formatParams(params) + '/', false); // false for synchronous request
+    xmlHttp.open("GET", 'http://152.7.177.129:8000/story' + formatParams(params), false); // false for synchronous request
     xmlHttp.send(null);
     return JSON.parse(xmlHttp.response);
 };
@@ -39,7 +39,7 @@ function getImage() {
         "story": content.hero + " and " + content.villain + " in " + content.location
     };
 
-    fetch('http://152.7.177.129:8000/getImage' + formatParams(params) + '/')
+    fetch('http://152.7.177.129:8000/getImage' + formatParams(params))
         .then(response => response.json())
         .then(response => {
             var sprompt = document.getElementById('temp_div_1');
@@ -65,7 +65,7 @@ function getCohesion() {
         "text": document.getElementById('sprompt_1').value + document.getElementById('eprompt_1').value
     };
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", 'http://152.7.177.129:8000/getCohesion' + formatParams(params) + '/', false); // false for synchronous request
+    xmlHttp.open("GET", 'http://152.7.177.129:8000/getCohesion' + formatParams(params), false); // false for synchronous request
     xmlHttp.send(null);
     return JSON.parse(xmlHttp.response);
 }
@@ -91,7 +91,7 @@ function countSetting() {
 function startGenerateHTML() {
     function getOptions(params) {
         var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open("GET", 'http://152.7.177.129:8000/getChoices' + formatParams(params) + '/', false); // false for synchronous request
+        xmlHttp.open("GET", 'http://152.7.177.129:8000/getChoices' + formatParams(params), false); // false for synchronous request
         xmlHttp.send(null);
         return JSON.parse(xmlHttp.response);
     }
@@ -129,7 +129,7 @@ function saveStory() {
         "location": content.location
     };
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("POST", 'http://152.7.177.129:8000/story' + '/', true);
+    xmlHttp.open("POST", 'http://152.7.177.129:8000/story', true);
     xmlHttp.setRequestHeader("Content-Type", "application/json");
     xmlHttp.onreadystatechange = function () {//Call a function when the state changes.
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
@@ -145,7 +145,7 @@ function generateComicStrip() {
         "story": document.getElementById('sprompt_1').value + document.getElementById('eprompt_1').value
     };
     if (params.story.length > 0) {
-        fetch('http://152.7.177.129:8000/comic' + formatParams(params) + '/')
+        fetch('http://152.7.177.129:8000/comic' + formatParams(params))
             .then(function (response) {
                 return response.blob();
             }).then(function (myBlob) {
