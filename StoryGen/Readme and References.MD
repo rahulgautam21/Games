@@ -35,3 +35,7 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.story
     OWNER to postgres;
 ```
+
+Frontend
+
+run landing.html
