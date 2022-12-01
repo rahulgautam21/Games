@@ -15,7 +15,7 @@ getImage();
 
 
 
-function getStory(title){
+function getStory(title) {
     var params = {
         "title": title
     };
@@ -145,19 +145,19 @@ function generateComicStrip() {
         "story": document.getElementById('sprompt_1').value + document.getElementById('eprompt_1').value
     };
     if (params.story.length > 0) {
-    fetch('http://152.7.177.129:8000/comic' + formatParams(params))
-        .then(function (response) {
-            return response.blob();
-        }).then(function (myBlob) {
-            var objectURL = URL.createObjectURL(myBlob);
-            const a = document.createElement('a');
-            a.style.display = 'none';
-            a.href = objectURL;
-            a.download = "comic_strip.png";
-            document.body.appendChild(a);
-            a.click();
-            window.URL.revokeObjectURL(objectURL);
-        });
+        fetch('http://152.7.177.129:8000/comic' + formatParams(params))
+            .then(function (response) {
+                return response.blob();
+            }).then(function (myBlob) {
+                var objectURL = URL.createObjectURL(myBlob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = objectURL;
+                a.download = "comic_strip.png";
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(objectURL);
+            });
     } else {
         alert("Cannot Generate Comic Strip for Empty Story")
     }

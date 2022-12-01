@@ -12,7 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous"></script>
-    <title>Document</title>
+    <title>Enchanted Quill 🪄</title>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -20,8 +20,7 @@
         <!-- As a heading -->
         <nav class="navbar navbar-dark bg-dark mt-5 mb-3" style="height: 100px">
             <div class="container-fluid">
-                <span class="navbar-brand mb-0 h1 text-white mx-auto" id="span_1">No story lives unless someone wants to
-                    listen</span>
+                <span class="navbar-brand mb-0 h1 text-white mx-auto">Spill Some Magic Y'all!! 🤞</span>
             </div>
         </nav>
 
@@ -31,7 +30,7 @@
                     <div class="jumbotron">
                         <div class="container">
                             <h1 class="display-4">Hero</h1>
-                            <p class="lead" id="hero_1">Hero fetched from backend</p>
+                            <p class="lead" id="hero">Hero fetched from backend</p>
                         </div>
                     </div>
                 </div>
@@ -39,7 +38,7 @@
                     <div class="jumbotron">
                         <div class="container">
                             <h1 class="display-4">Villain</h1>
-                            <p class="lead" id="villain_1">Villain fetched from backend</p>
+                            <p class="lead" id="villain">Villain fetched from backend</p>
                         </div>
                     </div>
                 </div>
@@ -47,7 +46,7 @@
                     <div class="jumbotron">
                         <div class="container">
                             <h1 class="display-4">Location</h1>
-                            <p class="lead" id="location_1">Location fetched from backend</p>
+                            <p class="lead" id="location">Location fetched from backend</p>
                         </div>
                     </div>
                 </div>
@@ -56,38 +55,39 @@
     </div>
     <div class="container">
         <!-- <form> -->
-        <div class="form-group mb-2" id="d1_1">
+        <div class="form-group mb-2" id="d1">
             <div class="row">
                 <div class="col-sm">
-                    <label for="sprompt">Edit This Starting Prompt</label>
-                    <textarea class="form-control" id="sprompt_1" name="start_prompt" style="min-height: 350px;"
-                        placeholder="Please enter a starting sentence of a story" autofocus required></textarea>
+                    <label for="sprompt">Starting Prompt</label>
+                    <textarea class="form-control" id="sprompt" name="start_prompt" style="min-height: 350px;"
+                        placeholder="This is a collaborative story generator that uses AI to generate stories. Enter a starting sentence for your story here, an ending sentence in the text box below and click Generate to get suggestions from AI"
+                        autofocus required></textarea>
                 </div>
                 <div class="col-sm">
-                    <div id="temp_div_1" class="border border-dark" style="min-height: 375px">
+                    <div id="temp_div" class="border border-dark" style="min-height: 375px">
                     </div>
                 </div>
             </div>
         </div>
         <div class="form-group mt-2 mb-2">
-            <label for="eprompt">Edit This Ending Prompt</label>
-            <input type="text" class="form-control" id="eprompt_1" name="end_prompt"
-                placeholder="Please enter a ending sentence of a story and click generate" required>
+            <label for="eprompt">Ending Prompt</label>
+            <input type="text" class="form-control" id="eprompt" name="end_prompt"
+                placeholder="Enter ending sentence for your story and click Generate" required>
         </div>
         <div class="mt-2 text-center">
-            <button type="submit" class="btn btn-outline-success w-100" id="generate_1"
+            <button type="submit" class="btn btn-outline-success w-100" id="generate"
                 onclick="return startGenerateHTML()">Generate</button>
             <!-- <button type="submit" class="btn btn-primary" id="generate"">Generate</button> -->
         </div>
         <!-- </form> -->
-        <div id="div1_1" style="flex-direction: row" class="text-center">
+        <div id="div1" style="flex-direction: row" class="text-center">
         </div>
         <div class="mt-2 text-center">
-            <button type="submit" class="btn btn-outline-success w-100" id="evaluate_1"
+            <button type="submit" class="btn btn-outline-success w-100" id="evaluate"
                 onclick="return evaluateStory()">Evaluate Story</button>
         </div>
-        <div id="div2_1" style="flex-direction: row" class="mt-2 text-center">
-            <ul class="list-group" id="lg_1"></ul>
+        <div id="div2" style="flex-direction: row" class="mt-2 text-center">
+            <ul class="list-group" id="lg"></ul>
         </div>
 
         <!-- Button trigger modal -->
@@ -107,28 +107,33 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <label for="save_1">Title</label>
-                        <input type="text" class="form-control mt-1" id="save_1" name="save_1" placeholder="Name your awesome story!" required>
+                        <label for="save">Title</label>
+                        <input type="text" class="form-control mt-1" id="save" name="save"
+                            placeholder="Name your awesome story!" required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" onclick="saveStory()" data-dismiss="modal">Save changes</button>
+                        <button type="button" class="btn btn-primary" onclick="saveStory()" data-dismiss="modal">Save
+                            changes</button>
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="mt-2 text-center">
-            <button type="submit" class="btn btn-outline-success w-100" id="comcistrip" onclick="generateComicStrip()">Download
-                Comic Strip</button>
+            <button type="submit" class="btn btn-outline-success w-100" id="comcistrip"
+                onclick="generateComicStrip()">Download Comic Strip</button>
         </div>
+
     </div>
     <footer class="footer mt-auto py-3 bg-dark">
         <div class="container">
-            <span class="text-light">CSC 582 @ Enchanted Quill • Developed by Rahul Gautam, Urmi Kashyap Pathak, Sarthak Babbar &
-                Rishabh Agarwal</span>
+            <span class="text-light">CSC 582 @ Enchanted Quill • Developed by Rahul Gautam, Urmi Kashyap Pathak, Sarthak
+                Babbar & Rishabh Agarwal</span>
         </div>
     </footer>
-    <script type="text/javaScript" src="js/script2.js"></script>
+    <script type="text/javaScript" src="js/script.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>

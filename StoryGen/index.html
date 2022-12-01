@@ -15,12 +15,12 @@
     <title>Document</title>
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <div class="container">
         <!-- As a heading -->
         <nav class="navbar navbar-dark bg-dark mt-5 mb-3" style="height: 100px">
             <div class="container-fluid">
-                <span class="navbar-brand mb-0 h1 text-white mx-auto">Create something awesome!</span>
+                <span class="navbar-brand mb-0 h1 text-white mx-auto">Spill Some Magic Y'all!! 🤞</span>
             </div>
         </nav>
 
@@ -60,7 +60,7 @@
                 <div class="col-sm">
                     <label for="sprompt">Starting Prompt</label>
                     <textarea class="form-control" id="sprompt" name="start_prompt" style="min-height: 350px;"
-                        placeholder="Please enter a starting sentence of a story" autofocus required></textarea>
+                        placeholder="This is a collaborative story generator that uses AI to generate stories. Enter a starting sentence for your story here, an ending sentence in the text box below and click Generate to get suggestions from AI" autofocus required></textarea>
                 </div>
                 <div class="col-sm">
                     <div id="temp_div" class="border border-dark" style="min-height: 375px">
@@ -71,7 +71,7 @@
         <div class="form-group mt-2 mb-2">
             <label for="eprompt">Ending Prompt</label>
             <input type="text" class="form-control" id="eprompt" name="end_prompt"
-                placeholder="Please enter a ending sentence of a story and click generate" required>
+                placeholder="Enter ending sentence for your story and click Generate" required>
         </div>
         <div class="mt-2 text-center">
             <button type="submit" class="btn btn-outline-success w-100" id="generate"
@@ -122,6 +122,11 @@
 </div>
 
     </div>
+    <footer class="footer mt-auto py-3 bg-dark">
+        <div class="container">
+            <span class="text-light">CSC 582 @ Enchanted Quill • Developed by Rahul Gautam, Urmi Kashyap Pathak, Sarthak Babbar & Rishabh Agarwal</span>
+        </div>
+    </footer>
     <script type="text/javaScript" src="js/script.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"

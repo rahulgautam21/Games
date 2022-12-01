@@ -120,7 +120,7 @@ function getImage() {
         });
 }
 
-function saveStory(){
+function saveStory() {
     var params = {
         "title": document.getElementById('save').value,
         "text": document.getElementById('sprompt').value + "######" + document.getElementById('eprompt').value,
@@ -140,22 +140,25 @@ function saveStory(){
     document.location.href = "./stories.html"
 }
 
-function generateComicStrip(){
+function generateComicStrip() {
     var params = {
         "story": document.getElementById('sprompt').value + document.getElementById('eprompt').value
     };
-
-    fetch('http://152.7.177.129:8000/comic' + formatParams(params))
-        .then(function (response) {
-            return response.blob();
-        }).then(function (myBlob) {
-            var objectURL = URL.createObjectURL(myBlob);
-            const a = document.createElement('a');
-            a.style.display = 'none';
-            a.href = objectURL;
-            a.download = "comic_strip.png";
-            document.body.appendChild(a);
-            a.click();
-            window.URL.revokeObjectURL(objectURL);
-        });
+    if (params.story.length > 0) {
+        fetch('http://152.7.177.129:8000/comic' + formatParams(params))
+            .then(function (response) {
+                return response.blob();
+            }).then(function (myBlob) {
+                var objectURL = URL.createObjectURL(myBlob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = objectURL;
+                a.download = "comic_strip.png";
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(objectURL);
+            })
+    } else {
+        alert("Cannot Generate Comic Strip for Empty Story")
+    }
 }

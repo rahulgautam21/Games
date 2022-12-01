@@ -12,82 +12,31 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous"></script>
-    <title>Document</title>
+    <title>Enchanted Quill 🪄</title>
 </head>
-<body>
+
+<body class="d-flex flex-column min-vh-100">
     <div class="container">
         <!-- As a heading -->
         <nav class="navbar navbar-dark bg-dark mt-5 mb-3" style="height: 100px">
             <div class="container-fluid">
-                <span class="navbar-brand mb-0 h1 text-white mx-auto">No story lives unless someone wants to listen</span>
+                <span class="navbar-brand mb-0 h1 text-white mx-auto">Enchanted Quill 🪄</span>
             </div>
         </nav>
-
-        <div class="container mt-2 mb-2 text-center">
-            <div class="row">
-                <div class="col-sm">
-                    <div class="jumbotron">
-                        <div class="container">
-                            <h1 class="display-4">Hero</h1>
-                            <p class="lead" id="hero">Hero fetched from backend</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm">
-                    <div class="jumbotron">
-                        <div class="container">
-                            <h1 class="display-4">Villain</h1>
-                            <p class="lead" id="villain">Villain fetched from backend</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm">
-                    <div class="jumbotron">
-                        <div class="container">
-                            <h1 class="display-4">Location</h1>
-                            <p class="lead" id="location">Location fetched from backend</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
     <div class="container">
-        <!-- <form> -->
-        <div class="form-group mb-2" id="d1">
-            <div class="row">
-                <div class="col-sm">
-                    <label for="sprompt">Starting Prompt</label>
-                    <textarea class="form-control" id="sprompt" name="start_prompt" style="min-height: 350px;"
-                        placeholder="Please enter a starting sentence of a story" autofocus required></textarea>
-                 </div>
-                <div class="col-sm">
-                    <div id="temp_div" class="border border-dark" style="min-height: 375px">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="form-group mt-2 mb-2">
-            <label for="eprompt">Ending Prompt</label>
-            <input type="text" class="form-control" id="eprompt" name="end_prompt" placeholder="Please enter a ending sentence of a story and click generate" required>
-        </div>
-        <div class="mt-2 text-center">
-            <button type="submit" class="btn btn-outline-success w-100" id="generate"
-                onclick="return startGenerateHTML()">Generate</button>
-            <!-- <button type="submit" class="btn btn-primary" id="generate"">Generate</button> -->
-        </div>
-        <!-- </form> -->
-        <div id="div1" style="flex-direction: row" class="text-center">
-        </div>
-        <div class="mt-2 text-center">
-            <button type="submit" class="btn btn-outline-success w-100" id="evaluate"
-                onclick="return evaluateStory()">Evaluate Story</button>
-        </div>
-        <div id="div2" style="flex-direction: row" class="mt-2 text-center">
-            <ul class="list-group" id="lg"></ul>
-        </div>
+        <button type="submit" class="btn btn-outline-dark w-100 btn-lg mb-2"
+            onclick="window.location.href='customStory.html'">Create a custom story</button>
+        <button type="submit" class="btn btn-outline-dark w-100 btn-lg mt-2"
+            onclick="window.location.href='stories.html'">Modify an existing story</button>
     </div>
-    <script type="text/javaScript" src="js/script.js"></script>
+    <footer class="footer mt-auto py-3 bg-dark">
+        <div class="container">
+            <span class="text-light">CSC 582 @ Enchanted Quill • Developed by Rahul Gautam, Urmi Kashyap Pathak, Sarthak
+                Babbar &
+                Rishabh Agarwal</span>
+        </div>
+    </footer>
 </body>
 
 </html>
