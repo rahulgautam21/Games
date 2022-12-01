@@ -2,6 +2,7 @@ import math
 import nltk
 nltk.download('punkt')
 nltk.download('wordnet_ic')
+nltk.download('stopwords')
 import numpy
 import itertools
 import nlputil
