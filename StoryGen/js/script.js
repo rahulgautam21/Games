@@ -1,5 +1,5 @@
 var setting = getSetting();
-// getImage();
+getImage();
 
 
 document.getElementById("hero").innerHTML = setting.hero;
