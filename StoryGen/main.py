@@ -126,7 +126,7 @@ def gpt_gen(prefix, suffix):
     response = openai.Completion.create(
         prompt=prefix,
         suffix=suffix,
-        model='text-davinci-002',
+        model='text-davinci-003',
         max_tokens=max_tokens,
         frequency_penalty=1,
         presence_penalty=1,
@@ -248,13 +248,15 @@ def multiline_sentence(text):
 
 def image_generator(text):
     sentences = splitter.split(text=text)
+    return_sentences = []
     # Replacing pronoun with nouns
     doc = nlp(text)
     replaced_sentences = splitter.split(text=doc._.coref_resolved)
-
     urls = []
 
     for sentence in replaced_sentences:
+        if sentence.strip() == '':
+            continue
         response = openai.Image.create(
             prompt=sentence,
             n=1,
@@ -266,9 +268,11 @@ def image_generator(text):
     im = Image.new(mode="RGB", size=(512, 512))
 
     for idx in range(len(sentences)):
-        sentences[idx] = multiline_sentence(sentences[idx])
+        if sentences[idx].strip() == '':
+            continue
+        return_sentences.append(multiline_sentence(sentences[idx]))
 
-    return sentences, urls, im
+    return return_sentences, urls, im
 
 
 @app.get('/comic', responses={
