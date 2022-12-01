@@ -1,5 +1,5 @@
 var setting = getSetting();
-getImage();
+// getImage();
 
 
 document.getElementById("hero").innerHTML = setting.hero;
@@ -95,26 +95,6 @@ function startGenerateHTML() {
             console.log(div);
         }
     }
-
-
-
-    // var split_options = options.split(",")
-    // console.log(split_options);
-
-    // var set = new Set();
-
-    // if(split_options.length > 1){
-    //     for(var i = 0; i< split_options.length; i++){
-    //         set.add(split_options[i]);
-    //     }
-    // }
-
-
-
-    // if(set.size  == 3){
-    //     document.getElementById("foption_sg").innerHTML = "";
-
-    // }
 }
 
 function getSetting() {
@@ -136,18 +116,8 @@ function getImage() {
             var sprompt = document.getElementById('temp_div');
             sprompt.style.background = 'url(' + response + ') no-repeat center center';
             sprompt.style.backgroundSize = 'contain';
-            // sprompt.style.backgroundRepeat = 'no-repeat';
-
-
-            // sprompt.style.opacity = 1;
-            // sprompt.style.zIndex = -1;
             console.log(response);
         });
-    // var xmlHttp = new XMLHttpRequest();
-    // xmlHttp.open("GET", 'http://152.7.177.41:8000/getImage' + formatParams(params), false); // false for synchronous request
-    // xmlHttp.send(null);
-    // // return JSON.parse(xmlHttp.response);
-    // return xmlHttp.responseText
 }
 
 function saveStory(){
@@ -168,4 +138,24 @@ function saveStory(){
     }
     xmlHttp.send(JSON.stringify(params));
     document.location.href = "./stories.html"
+}
+
+function generateComicStrip(){
+    var params = {
+        "story": document.getElementById('sprompt').value + document.getElementById('eprompt').value
+    };
+
+    fetch('http://152.7.177.129:8000/comic' + formatParams(params))
+        .then(function (response) {
+            return response.blob();
+        }).then(function (myBlob) {
+            var objectURL = URL.createObjectURL(myBlob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = objectURL;
+            a.download = "comic_strip.png";
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(objectURL);
+        });
 }

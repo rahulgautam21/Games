@@ -139,3 +139,23 @@ function saveStory() {
     xmlHttp.send(JSON.stringify(params));
     document.location.href = "./stories.html"
 }
+
+function generateComicStrip() {
+    var params = {
+        "story": document.getElementById('sprompt_1').value + document.getElementById('eprompt_1').value
+    };
+
+    fetch('http://152.7.177.129:8000/comic' + formatParams(params))
+        .then(function (response) {
+            return response.blob();
+        }).then(function (myBlob) {
+            var objectURL = URL.createObjectURL(myBlob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = objectURL;
+            a.download = "comic_strip.png";
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(objectURL);
+        });
+}
