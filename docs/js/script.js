@@ -42,7 +42,7 @@ function getCohesion() {
         "text": document.getElementById('sprompt').value + document.getElementById('eprompt').value
     };
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", 'http://152.7.177.129:8000/getCohesion' + formatParams(params), false); // false for synchronous request
+    xmlHttp.open("GET", 'http://152.7.177.129:8000/getCohesion' + formatParams(params) + '/', false); // false for synchronous request
     xmlHttp.send(null);
     return JSON.parse(xmlHttp.response);
 }
@@ -62,7 +62,7 @@ function evaluateStory() {
 function startGenerateHTML() {
     function getOptions(params) {
         var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open("GET", 'http://152.7.177.129:8000/getChoices' + formatParams(params), false); // false for synchronous request
+        xmlHttp.open("GET", 'http://152.7.177.129:8000/getChoices' + formatParams(params) + '/', false); // false for synchronous request
         xmlHttp.send(null);
         return JSON.parse(xmlHttp.response);
     }
@@ -99,7 +99,7 @@ function startGenerateHTML() {
 
 function getSetting() {
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", 'http://152.7.177.129:8000/getSetting', false); // false for synchronous request
+    xmlHttp.open("GET", 'http://152.7.177.129:8000/getSetting' + '/', false); // false for synchronous request
     xmlHttp.send(null);
     return JSON.parse(xmlHttp.response);
 }
@@ -109,7 +109,7 @@ function getImage() {
         "story": setting.hero + " and " + setting.villain + " in " + setting.location
     };
 
-    fetch('http://152.7.177.129:8000/getImage' + formatParams(params))
+    fetch('http://152.7.177.129:8000/getImage' + formatParams(params) + '/')
         .then(response => response.json())
         .then(response => {
             console.log(response);
@@ -129,7 +129,7 @@ function saveStory() {
         "location": setting.location
     };
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("POST", 'http://152.7.177.129:8000/story', true);
+    xmlHttp.open("POST", 'http://152.7.177.129:8000/story' + '/', true);
     xmlHttp.setRequestHeader("Content-Type", "application/json");
     xmlHttp.onreadystatechange = function () {//Call a function when the state changes.
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
@@ -145,7 +145,7 @@ function generateComicStrip() {
         "story": document.getElementById('sprompt').value + document.getElementById('eprompt').value
     };
     if (params.story.length > 0) {
-        fetch('http://152.7.177.129:8000/comic' + formatParams(params))
+        fetch('http://152.7.177.129:8000/comic' + formatParams(params) + '/')
             .then(function (response) {
                 return response.blob();
             }).then(function (myBlob) {
